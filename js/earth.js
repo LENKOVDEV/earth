@@ -881,7 +881,9 @@ function addListeners() {
         const clipY = y / rect.height * -2 + 1;
         return [clipX, clipY];
     }
-    
+    canvas.addEventListener('mouseleave', (e) => {
+        mousedown = false;
+    });
     canvas.addEventListener('mousedown', (e) => {
         mousedown = true;
         mouseCoords = getClippedCoords(e);
@@ -892,8 +894,8 @@ function addListeners() {
     canvas.addEventListener('mousemove', (e) => {
         if (mousedown) {
             let newCoords = getClippedCoords(e);
-            CONFIG.cameraLat += (mouseCoords[1] - newCoords[1]) * CONFIG.cameraHeight / 400;
-            CONFIG.cameraLon += (mouseCoords[0] - newCoords[0]) * CONFIG.cameraHeight / 400; 
+            CONFIG.cameraLat += (mouseCoords[1] - newCoords[1]) * CONFIG.cameraHeight / 200;
+            CONFIG.cameraLon += (mouseCoords[0] - newCoords[0]) * CONFIG.cameraHeight / 200; 
             updateTargetLocWithGivenCamera();
 
             CONFIG.cameraZoom = findPixelPerfectZoomForCamHeight(CONFIG.cameraZoom, CONFIG.fieldOfView, CONFIG.cameraLat, CONFIG.cameraLon, CONFIG.targetDist);
